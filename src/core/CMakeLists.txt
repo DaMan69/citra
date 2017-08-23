@@ -446,3 +446,8 @@ if (ARCHITECTURE_x86_64)
 endif()
 
 target_link_libraries(core PUBLIC libzmq-headers cppzmq-headers libzmq)
+if(MSVC)
+    add_definitions(/GR)
+elseif(CMAKE_CXX_COMPILER_ID MATCHES "GCC" OR "Clang")
+    string(REPLACE " -fno-rtti" " " CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+endif()
