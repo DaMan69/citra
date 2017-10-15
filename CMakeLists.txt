@@ -260,6 +260,7 @@ if (CITRA_ENABLE_COMPATIBILITY_REPORTING)
     add_definitions(-DCITRA_ENABLE_COMPATIBILITY_REPORTING)
 endif()
 
+include_directories(./externals/cryptopp)
 # Platform-specific library requirements
 # ======================================
 
@@ -274,7 +275,7 @@ IF (APPLE)
 ELSEIF (WIN32)
     # WSAPoll and SHGetKnownFolderPath (AppData/Roaming) didn't exist before WinNT 6.x (Vista)
     add_definitions(-D_WIN32_WINNT=0x0601 -DWINVER=0x0601)
-    set(PLATFORM_LIBRARIES winmm ws2_32)
+    set(PLATFORM_LIBRARIES winmm ws2_32 cryptopp)
     IF (MINGW)
         set(PLATFORM_LIBRARIES ${PLATFORM_LIBRARIES} imm32 version)
     ENDIF (MINGW)
