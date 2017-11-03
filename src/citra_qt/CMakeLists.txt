@@ -34,6 +34,17 @@ set(SRCS
             ui_settings.cpp
             citra-qt.rc
             Info.plist
+            ../audio_core/audio_core.cpp
+            ../audio_core/codec.cpp
+            ../audio_core/hle/dsp.cpp
+            ../audio_core/hle/filter.cpp
+            ../audio_core/hle/mixers.cpp
+            ../audio_core/hle/pipe.cpp
+            ../audio_core/hle/source.cpp
+            ../audio_core/interpolate.cpp
+            ../audio_core/sink_details.cpp
+            ../audio_core/time_stretch.cpp
+            ../audio_core/sdl2_sink.cpp
             ../video_core/command_processor.cpp
             ../video_core/debug_utils/debug_utils.cpp
             ../video_core/geometry_pipeline.cpp
@@ -96,6 +107,20 @@ set(HEADERS
             hotkeys.h
             main.h
             ui_settings.h
+            ../audio_core/audio_core.h
+            ../audio_core/codec.h
+            ../audio_core/hle/common.h
+            ../audio_core/hle/dsp.h
+            ../audio_core/hle/filter.h
+            ../audio_core/hle/mixers.h
+            ../audio_core/hle/pipe.h
+            ../audio_core/hle/source.h
+            ../audio_core/interpolate.h
+            ../audio_core/null_sink.h
+            ../audio_core/sink.h
+            ../audio_core/sink_details.h
+            ../audio_core/time_stretch.h
+            ../audio_core/sdl2_sink.h
             ../video_core/command_processor.h
             ../video_core/debug_utils/debug_utils.h
             ../video_core/geometry_pipeline.h
@@ -174,9 +199,13 @@ if (APPLE)
 else()
     add_executable(citra-qt ${SRCS} ${HEADERS} ${UI_HDRS} ${ICONS} ${THEMES})
 endif()
-target_link_libraries(citra-qt PRIVATE audio_core common core input_common network xbyak)
+target_link_libraries(citra-qt PRIVATE common core input_common network SDL2 SoundTouch xbyak)
 target_link_libraries(citra-qt PRIVATE Boost::boost glad nihstro-headers Qt5::OpenGL Qt5::Widgets)
 target_link_libraries(citra-qt PRIVATE ${PLATFORM_LIBRARIES} Threads::Threads)
+
+if(SDL2_FOUND)
+    target_compile_definitions(citra-qt PRIVATE HAVE_SDL2)
+endif()
 
 if(UNIX AND NOT APPLE)
     install(TARGETS citra-qt RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")

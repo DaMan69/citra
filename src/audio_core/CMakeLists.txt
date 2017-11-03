@@ -1,35 +1,35 @@
 set(SRCS
-            audio_core.cpp
-            codec.cpp
-            hle/dsp.cpp
-            hle/filter.cpp
-            hle/mixers.cpp
-            hle/pipe.cpp
-            hle/source.cpp
-            interpolate.cpp
-            sink_details.cpp
-            time_stretch.cpp
+            ../audio_core/audio_core.cpp
+            ../audio_core/codec.cpp
+            ../audio_core/hle/dsp.cpp
+            ../audio_core/hle/filter.cpp
+            ../audio_core/hle/mixers.cpp
+            ../audio_core/hle/pipe.cpp
+            ../audio_core/hle/source.cpp
+            ../audio_core/interpolate.cpp
+            ../audio_core/sink_details.cpp
+            ../audio_core/time_stretch.cpp
             )
 
 set(HEADERS
-            audio_core.h
-            codec.h
-            hle/common.h
-            hle/dsp.h
-            hle/filter.h
-            hle/mixers.h
-            hle/pipe.h
-            hle/source.h
-            interpolate.h
-            null_sink.h
-            sink.h
-            sink_details.h
-            time_stretch.h
+            ../audio_core/audio_core.h
+            ../audio_core/codec.h
+            ../audio_core/hle/common.h
+            ../audio_core/hle/dsp.h
+            ../audio_core/hle/filter.h
+            ../audio_core/hle/mixers.h
+            ../audio_core/hle/pipe.h
+            ../audio_core/hle/source.h
+            ../audio_core/interpolate.h
+            ../audio_core/null_sink.h
+            ../audio_core/sink.h
+            ../audio_core/sink_details.h
+            ../audio_core/time_stretch.h
             )
 
 if(SDL2_FOUND)
-    set(SRCS ${SRCS} sdl2_sink.cpp)
-    set(HEADERS ${HEADERS} sdl2_sink.h)
+    set(SRCS ${SRCS} ../audio_core/sdl2_sink.cpp)
+    set(HEADERS ${HEADERS} ../audio_core/sdl2_sink.h)
 endif()
 
 create_directory_groups(${SRCS} ${HEADERS})
