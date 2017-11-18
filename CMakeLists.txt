@@ -92,6 +92,15 @@ if (NOT MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-attributes")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
 
+    set(PGO 0 CACHE INT "1=Instrument, 2=Optimize")
+    if(PGO EQUAL 1)
+        message(STATUS "PGO generate")
+        add_compile_options(-fprofile-generate)
+    elseif(PGO EQUAL 2)
+        message(STATUS "PGO optimize")
+        add_compile_options(-fprofile-use -fprofile-correction)
+    endif()
+
     if (MINGW)
         add_definitions(-DMINGW_HAS_SECURE_API)
 
