@@ -800,9 +800,9 @@ void JitShader::Compile_EMIT(Instruction instr) {
     mov(ABI_PARAM2, STATE);
     add(ABI_PARAM2, static_cast<Xbyak::uint32>(offsetof(UnitState, registers.output)));
     CallFarFunction(*this, Emit);
-    if (Common::GetCPUCaps().avx) {
+    #ifdef __AVX__
         vzeroupper();
-    }
+    #endif
     ABI_PopRegistersAndAdjustStack(*this, PersistentCallerSavedRegs(), 0);
     L(end);
 }
@@ -903,9 +903,9 @@ void JitShader::Compile(const std::array<u32, MAX_PROGRAM_CODE_LENGTH>* program_
     FindReturnOffsets();
 
     // An AVX-SSE transition may happen here as we emit only SSE instructions.
-    if (Common::GetCPUCaps().avx) {
+    #ifdef __AVX__
         vzeroupper();
-    }
+    #endif
 
     // The stack pointer is 8 modulo 16 at the entry of a procedure
     // We reserve 16 bytes and assign a dummy value to the first 8 bytes, to catch any potential
