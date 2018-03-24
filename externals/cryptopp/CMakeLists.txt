@@ -50,7 +50,7 @@ if(MSVC)
 endif()
 
 # Endianness
-TEST_BIG_ENDIAN(IS_BIG_ENDIAN)
+#TEST_BIG_ENDIAN(IS_BIG_ENDIAN)
 if(IS_BIG_ENDIAN)
     add_definitions(-DIS_BIG_ENDIAN)
 endif()
